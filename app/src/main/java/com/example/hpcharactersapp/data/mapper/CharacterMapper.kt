@@ -12,7 +12,7 @@ fun CharacterDto.toCharacter(): Character {
         alive = alive,
         alternateNames = alternateNames,
         ancestry = ancestry,
-        dateOfBirth = dateOfBirth,
+        dateOfBirth = dateOfBirth.orEmpty(),
         eyeColour = eyeColour,
         gender = gender,
         hairColour = hairColour,
@@ -25,14 +25,14 @@ fun CharacterDto.toCharacter(): Character {
         species = species,
         wand = wandDto.toWand(),
         wizard = wizard,
-        yearOfBirth = yearOfBirth
+        yearOfBirth = yearOfBirth ?: 0
     )
 }
 
 fun WandDto.toWand(): Wand {
     return Wand(
-        core = core,
-        length = length,
-        wood = wood
+        core = core.orEmpty(),
+        length = length ?: 0.0,
+        wood = wood.orEmpty()
     )
 }

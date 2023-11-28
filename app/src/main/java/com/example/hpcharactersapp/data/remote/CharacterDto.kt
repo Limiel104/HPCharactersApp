@@ -9,7 +9,7 @@ data class CharacterDto(
     @SerializedName("alternate_names")
     val alternateNames: List<String>,
     val ancestry: String,
-    val dateOfBirth: String,
+    val dateOfBirth: String?,
     val eyeColour: String,
     val gender: String,
     val hairColour: String,
@@ -21,7 +21,8 @@ data class CharacterDto(
     val name: String,
     val patronus: String,
     val species: String,
+    @SerializedName("wand")
     val wandDto: WandDto,
     val wizard: Boolean,
-    val yearOfBirth: Int
+    val yearOfBirth: Int?
 )

@@ -26,7 +26,15 @@ class CharacterListFragment : Fragment() {
     ): View? {
         Log.i("TAG","Character List Fragment")
 
+        displayCharacters()
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_character_list, container, false)
+    }
+
+    fun displayCharacters() {
+        viewModel.characters.observe(viewLifecycleOwner) { characters ->
+            Log.i("TAG", characters.toString())
+        }
     }
 }
