@@ -1,10 +1,16 @@
-package com.example.hpcharactersapp.domain.model
+package com.example.hpcharactersapp.data.local.entity
 
-data class Character(
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.example.hpcharactersapp.domain.model.Wand
+
+@Entity
+data class CharacterEntity(
+    @PrimaryKey
     val id: String,
     val actor: String,
     val alive: Boolean,
-    val alternateNames: List<String>,
     val ancestry: String,
     val dateOfBirth: String,
     val eyeColour: String,
@@ -17,6 +23,7 @@ data class Character(
     val name: String,
     val patronus: String,
     val species: String,
+    @Embedded
     val wand: Wand,
     val wizard: Boolean,
     val yearOfBirth: Int

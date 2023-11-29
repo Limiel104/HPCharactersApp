@@ -1,6 +1,9 @@
 package com.example.hpcharactersapp.domain.repository
 
+import com.example.hpcharactersapp.data.local.CharacterDao
+import com.example.hpcharactersapp.data.mapper.getAlternateNamesEntityList
 import com.example.hpcharactersapp.data.mapper.toCharacter
+import com.example.hpcharactersapp.data.mapper.toCharacterEntity
 import com.example.hpcharactersapp.data.remote.HPApi
 import com.example.hpcharactersapp.data.repository.CharacterRepository
 import com.example.hpcharactersapp.domain.model.Character
@@ -14,13 +17,23 @@ import javax.inject.Singleton
 
 @Singleton
 class CharacterRepositoryImpl @Inject constructor(
-    private val api: HPApi
+    private val api: HPApi,
+    private val dao: CharacterDao
 ): CharacterRepository {
     override suspend fun getCharacters(): Flow<Resource<List<Character>>> {
         return flow {
             emit(Resource.Loading(isLoading = true))
 
-            val characters = try {
+            val characters = dao.getCharacters().map { it.toCharacter() }
+            val loadFromCache = characters.isNotEmpty()
+
+            if(loadFromCache) {
+                emit(Resource.Success(characters))
+                emit(Resource.Loading(isLoading = false))
+                return@flow
+            }
+
+            val charactersFromRemote = try {
                 api.getCharacters().map { it.toCharacter() }
             }
             catch (e: IOException) {
@@ -34,7 +47,14 @@ class CharacterRepositoryImpl @Inject constructor(
                 null
             }
 
-            emit(Resource.Success(characters))
+            charactersFromRemote?.let { characterList ->
+                dao.deleteCharacters()
+                for(character in characterList) {
+                    dao.insertCharacterWithAlternateNames(character.toCharacterEntity(),character.getAlternateNamesEntityList())
+                }
+                emit(Resource.Success(dao.getCharacters().map { it.toCharacter() }))
+            }
+
             emit(Resource.Loading(isLoading = false))
         }
     }

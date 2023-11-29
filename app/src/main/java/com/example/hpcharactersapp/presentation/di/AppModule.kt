@@ -1,5 +1,8 @@
 package com.example.hpcharactersapp.presentation.di
 
+import android.app.Application
+import androidx.room.Room
+import com.example.hpcharactersapp.data.local.CharactersDatabase
 import com.example.hpcharactersapp.data.remote.HPApi
 import com.example.hpcharactersapp.data.repository.CharacterRepository
 import com.example.hpcharactersapp.domain.repository.CharacterRepositoryImpl
@@ -29,8 +32,18 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideCharacterRepository(api: HPApi): CharacterRepository {
-        return CharacterRepositoryImpl(api)
+    fun provideCharacterDatabase(application: Application): CharactersDatabase {
+        return Room.databaseBuilder(
+            application,
+            CharactersDatabase::class.java,
+            CharactersDatabase.DATABASE_NAME
+        ).build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideCharacterRepository(api: HPApi, db: CharactersDatabase): CharacterRepository {
+        return CharacterRepositoryImpl(api, db.characterDao)
     }
 
     @Provides
