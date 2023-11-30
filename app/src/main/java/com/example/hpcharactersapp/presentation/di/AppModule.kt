@@ -6,6 +6,7 @@ import com.example.hpcharactersapp.data.local.CharactersDatabase
 import com.example.hpcharactersapp.data.remote.HPApi
 import com.example.hpcharactersapp.data.repository.CharacterRepository
 import com.example.hpcharactersapp.domain.repository.CharacterRepositoryImpl
+import com.example.hpcharactersapp.domain.use_case.GetCharacterUseCase
 import com.example.hpcharactersapp.domain.use_case.GetCharactersUseCase
 import dagger.Module
 import dagger.Provides
@@ -50,5 +51,11 @@ object AppModule {
     @Singleton
     fun provideGetCharactersUseCase(repository: CharacterRepository): GetCharactersUseCase {
         return GetCharactersUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetCharacterUseCase(repository: CharacterRepository): GetCharacterUseCase {
+        return GetCharacterUseCase(repository)
     }
 }

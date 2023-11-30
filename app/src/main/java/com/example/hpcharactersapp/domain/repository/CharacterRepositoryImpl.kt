@@ -59,7 +59,19 @@ class CharacterRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getCharacter(characterId: String): Flow<Resource<List<Character>>> {
-        TODO("Not yet implemented")
+    override suspend fun getCharacter(characterId: String): Flow<Resource<Character>> {
+        return flow {
+            emit(Resource.Loading(isLoading = true))
+
+            val character = dao.getCharacter(characterId)
+
+            if(character != null) {
+                emit(Resource.Success(character.toCharacter()))
+            } else {
+                emit(Resource.Error(message = "No product found with this id"))
+            }
+
+            emit(Resource.Loading(isLoading = false))
+        }
     }
 }

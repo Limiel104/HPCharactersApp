@@ -8,5 +8,5 @@ interface CharacterRepository {
 
     suspend fun getCharacters(): Flow<Resource<List<Character>>>
 
-    suspend fun getCharacter(characterId: String): Flow<Resource<List<Character>>>
+    suspend fun getCharacter(characterId: String): Flow<Resource<Character>>
 }

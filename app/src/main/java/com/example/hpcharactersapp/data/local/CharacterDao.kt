@@ -33,6 +33,16 @@ interface CharacterDao {
     )
     suspend fun getCharacters(): List<CharacterWithAlternateName>
 
+    @Transaction
+    @Query(
+        """
+            SELECT *
+            FROM characterentity
+            WHERE id = :characterId
+        """
+    )
+    suspend fun getCharacter(characterId: String): CharacterWithAlternateName?
+
     @Query("DELETE FROM characterentity")
     suspend fun deleteCharacters()
 }
