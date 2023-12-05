@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hpcharactersapp.databinding.FragmentCharacterListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -36,6 +37,7 @@ class CharacterListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.characterListRV.layoutManager = LinearLayoutManager(requireContext())
         displayCharacters()
     }
 
@@ -45,8 +47,11 @@ class CharacterListFragment : Fragment() {
     }
 
     fun displayCharacters() {
-        viewModel.characters.observe(viewLifecycleOwner) { characters ->
-            Log.i("TAG", characters.toString())
+        viewModel.characters.observe(viewLifecycleOwner) {
+            binding.characterListRV.adapter = viewModel.characters.value?.let { characters ->
+                Log.i("TAG", characters.toString())
+                CharacterRVAdapter(characters)
+            }
         }
     }
 }

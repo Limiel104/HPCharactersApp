@@ -91,4 +91,7 @@ dependencies {
 
     // LiveData
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
+
+    //RecycleView
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
 }
