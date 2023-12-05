@@ -7,12 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.example.hpcharactersapp.R
+import com.example.hpcharactersapp.databinding.FragmentCharacterListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CharacterListFragment : Fragment() {
 
+    private var _binding: FragmentCharacterListBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: CharacterListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,10 +28,20 @@ class CharacterListFragment : Fragment() {
     ): View? {
         Log.i("TAG","Character List Fragment")
 
-        displayCharacters()
+        _binding = FragmentCharacterListBinding.inflate(inflater, container, false)
 
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_character_list, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        displayCharacters()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     fun displayCharacters() {

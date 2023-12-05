@@ -7,10 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import com.example.hpcharactersapp.R
+import com.example.hpcharactersapp.databinding.FragmentCharacterDetailsBinding
 
 class CharacterDetailsFragment : Fragment() {
 
+    private var _binding: FragmentCharacterDetailsBinding? = null
+    private val binding get() = _binding!!
     private val viewModel: CharacterDetailsViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,10 +26,20 @@ class CharacterDetailsFragment : Fragment() {
     ): View? {
         Log.i("TAG","Character Details Fragment")
 
-        displayCharacter()
+        _binding = FragmentCharacterDetailsBinding.inflate(inflater, container, false)
 
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_character_details, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        displayCharacter()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     fun displayCharacter() {
