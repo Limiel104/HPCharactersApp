@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.hpcharactersapp.databinding.FragmentCharacterListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -37,7 +37,7 @@ class CharacterListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.characterListRV.layoutManager = LinearLayoutManager(requireContext())
+        binding.characterListRV.layoutManager = GridLayoutManager(requireContext(),2)
         displayCharacters()
     }
 

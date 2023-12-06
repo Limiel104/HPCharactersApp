@@ -94,4 +94,7 @@ dependencies {
 
     //RecycleView
     implementation("androidx.recyclerview:recyclerview:1.3.2")
+
+    //Coil
+    implementation("io.coil-kt:coil:2.5.0")
 }
