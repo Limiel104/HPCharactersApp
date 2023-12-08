@@ -8,7 +8,11 @@ import kotlinx.coroutines.flow.Flow
 class GetCharactersUseCase(
     private val repository: CharacterRepository
 ) {
-    suspend fun execute(): Flow<Resource<List<Character>>> {
-        return repository.getCharacters()
+    suspend fun execute(query: String): Flow<Resource<List<Character>>> {
+        return if(query == "null")
+            repository.getCharacters("")
+        else
+            repository.getCharacters(query)
+
     }
 }

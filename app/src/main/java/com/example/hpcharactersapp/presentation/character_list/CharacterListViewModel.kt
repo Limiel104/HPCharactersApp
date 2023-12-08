@@ -21,15 +21,29 @@ class CharacterListViewModel @Inject constructor(
     private val _characters = MutableLiveData<List<Character>>()
     val characters: LiveData<List<Character>> = _characters
 
+    private val _query = MutableLiveData<String>()
+    val query: LiveData<String> = _query
+
     init {
         Log.i("TAG","Character List View Model")
 
         getCharacters()
     }
 
-    fun getCharacters() {
+    fun onEvent(event: CharacterListEvent) {
+        when(event) {
+            is CharacterListEvent.OnQueryChange -> {
+                _query.value = event.query
+                getCharacters()
+            }
+        }
+    }
+
+    fun getCharacters(
+        query: String = _query.value.toString()
+    ) {
         viewModelScope.launch {
-            getCharactersUseCase.execute().collect { response ->
+            getCharactersUseCase.execute(query).collect { response ->
                 when(response) {
                     is Resource.Error -> {}
                     is Resource.Loading -> {}

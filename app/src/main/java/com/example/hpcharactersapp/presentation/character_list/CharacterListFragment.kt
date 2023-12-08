@@ -39,6 +39,7 @@ class CharacterListFragment : Fragment() {
 
         binding.characterListRV.layoutManager = GridLayoutManager(requireContext(),2)
         displayCharacters()
+        onCharacterSearch()
     }
 
     override fun onDestroyView() {
@@ -52,6 +53,16 @@ class CharacterListFragment : Fragment() {
                 Log.i("TAG", characters.toString())
                 CharacterRVAdapter(characters)
             }
+        }
+    }
+
+    fun onCharacterSearch() {
+        binding.searchView.editText.setOnEditorActionListener { _, _, _ ->
+            val query = binding.searchView.text
+            binding.searchBar.setText(query)
+            viewModel.onEvent(CharacterListEvent.OnQueryChange(query.toString()))
+            binding.searchView.hide()
+            return@setOnEditorActionListener false
         }
     }
 }

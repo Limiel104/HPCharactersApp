@@ -29,9 +29,10 @@ interface CharacterDao {
         """
             SELECT *
             FROM characterentity
+            WHERE LOWER(name) LIKE '%' || LOWER(:query) || '%'
         """
     )
-    suspend fun getCharacters(): List<CharacterWithAlternateName>
+    suspend fun getCharacters(query: String): List<CharacterWithAlternateName>
 
     @Transaction
     @Query(
