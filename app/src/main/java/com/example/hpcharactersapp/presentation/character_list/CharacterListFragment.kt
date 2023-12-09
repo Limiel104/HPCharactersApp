@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.hpcharactersapp.databinding.FragmentCharacterListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -39,7 +40,10 @@ class CharacterListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.characterListRV.layoutManager = GridLayoutManager(requireContext(),2)
+        binding.suggestionListRV.layoutManager = LinearLayoutManager(requireContext())
+
         displayCharacters()
+        displaySuggestions()
         onCharacterSearch()
         onLoading()
         onError()
@@ -59,7 +63,18 @@ class CharacterListFragment : Fragment() {
         }
     }
 
+    fun displaySuggestions() {
+        viewModel.suggestions.observe(viewLifecycleOwner) {
+            binding.suggestionListRV.adapter = viewModel.suggestions.value?.let { suggestions ->
+                Log.i("TAG", suggestions.toString())
+                SuggestionRVAdapter(suggestions)
+            }
+        }
+    }
+
     fun onCharacterSearch() {
+        viewModel.onEvent(CharacterListEvent.OnShowSuggestions)
+
         binding.searchView.editText.setOnEditorActionListener { _, _, _ ->
             val query = binding.searchView.text
             binding.searchBar.setText(query)

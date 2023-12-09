@@ -47,8 +47,12 @@
         android:maxLines="1"
         android:inputType="text"
         app:layout_anchor="@id/searchBar">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/suggestionListRV"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
     </com.google.android.material.search.SearchView>
-
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

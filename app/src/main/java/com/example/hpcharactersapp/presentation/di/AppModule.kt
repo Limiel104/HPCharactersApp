@@ -8,6 +8,7 @@ import com.example.hpcharactersapp.data.repository.CharacterRepository
 import com.example.hpcharactersapp.domain.repository.CharacterRepositoryImpl
 import com.example.hpcharactersapp.domain.use_case.GetCharacterUseCase
 import com.example.hpcharactersapp.domain.use_case.GetCharactersUseCase
+import com.example.hpcharactersapp.domain.use_case.GetSuggestionsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -57,5 +58,11 @@ object AppModule {
     @Singleton
     fun provideGetCharacterUseCase(repository: CharacterRepository): GetCharacterUseCase {
         return GetCharacterUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetSuggestionsUseCase(): GetSuggestionsUseCase {
+        return GetSuggestionsUseCase()
     }
 }

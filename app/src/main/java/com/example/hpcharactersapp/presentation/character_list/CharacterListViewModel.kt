@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.hpcharactersapp.domain.model.Character
 import com.example.hpcharactersapp.domain.use_case.GetCharactersUseCase
+import com.example.hpcharactersapp.domain.use_case.GetSuggestionsUseCase
 import com.example.hpcharactersapp.domain.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -15,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CharacterListViewModel @Inject constructor(
     private val getCharactersUseCase: GetCharactersUseCase,
-
+    private val getSuggestionsUseCase: GetSuggestionsUseCase
 ): ViewModel() {
 
     private val _characters = MutableLiveData<List<Character>>()
@@ -30,6 +31,9 @@ class CharacterListViewModel @Inject constructor(
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
+    private val _suggestions = MutableLiveData<List<String>>()
+    val suggestions: LiveData<List<String>> = _suggestions
+
     init {
         Log.i("TAG","Character List View Model")
 
@@ -41,6 +45,9 @@ class CharacterListViewModel @Inject constructor(
             is CharacterListEvent.OnQueryChange -> {
                 _query.value = event.query
                 getCharacters()
+            }
+            is CharacterListEvent.OnShowSuggestions -> {
+                getSuggestions()
             }
         }
     }
@@ -66,6 +73,12 @@ class CharacterListViewModel @Inject constructor(
                     }
                 }
             }
+        }
+    }
+
+    fun getSuggestions() {
+        viewModelScope.launch {
+            _suggestions.value = getSuggestionsUseCase.execute()
         }
     }
 }
