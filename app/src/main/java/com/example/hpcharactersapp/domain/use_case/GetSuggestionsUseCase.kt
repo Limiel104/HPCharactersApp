@@ -1,8 +1,14 @@
 package com.example.hpcharactersapp.domain.use_case
 
-class GetSuggestionsUseCase() {
+import com.example.hpcharactersapp.data.repository.SuggestionRepository
+import com.example.hpcharactersapp.domain.util.Resource
+import kotlinx.coroutines.flow.Flow
 
-    suspend fun execute(): List<String> {
-        return listOf("one","two","three","four")
+class GetSuggestionsUseCase(
+    private val repository: SuggestionRepository
+) {
+
+    suspend fun execute(): Flow<Resource<List<String>>> {
+        return repository.getSuggestions()
     }
 }

@@ -73,8 +73,6 @@ class CharacterListFragment : Fragment() {
     }
 
     fun onCharacterSearch() {
-        viewModel.onEvent(CharacterListEvent.OnShowSuggestions)
-
         binding.searchView.editText.setOnEditorActionListener { _, _, _ ->
             val query = binding.searchView.text
             binding.searchBar.setText(query)

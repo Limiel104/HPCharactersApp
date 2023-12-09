@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.hpcharactersapp.domain.model.Character
+import com.example.hpcharactersapp.domain.use_case.AddSuggestionUseCase
 import com.example.hpcharactersapp.domain.use_case.GetCharactersUseCase
 import com.example.hpcharactersapp.domain.use_case.GetSuggestionsUseCase
 import com.example.hpcharactersapp.domain.util.Resource
@@ -16,7 +17,8 @@ import javax.inject.Inject
 @HiltViewModel
 class CharacterListViewModel @Inject constructor(
     private val getCharactersUseCase: GetCharactersUseCase,
-    private val getSuggestionsUseCase: GetSuggestionsUseCase
+    private val getSuggestionsUseCase: GetSuggestionsUseCase,
+    private val addSuggestionUseCase: AddSuggestionUseCase
 ): ViewModel() {
 
     private val _characters = MutableLiveData<List<Character>>()
@@ -38,15 +40,17 @@ class CharacterListViewModel @Inject constructor(
         Log.i("TAG","Character List View Model")
 
         getCharacters()
+        getSuggestions()
     }
 
     fun onEvent(event: CharacterListEvent) {
         when(event) {
             is CharacterListEvent.OnQueryChange -> {
                 _query.value = event.query
+                if(event.query != "") {
+                    addSuggestion()
+                }
                 getCharacters()
-            }
-            is CharacterListEvent.OnShowSuggestions -> {
                 getSuggestions()
             }
         }
@@ -78,7 +82,25 @@ class CharacterListViewModel @Inject constructor(
 
     fun getSuggestions() {
         viewModelScope.launch {
-            _suggestions.value = getSuggestionsUseCase.execute()
+            getSuggestionsUseCase.execute().collect { response ->
+                when(response) {
+                    is Resource.Error -> {}
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {
+                        response.data?.let { suggestionList ->
+                            _suggestions.value = suggestionList.distinct()
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun addSuggestion(
+        suggestion: String = _query.value.toString()
+    ) {
+        viewModelScope.launch {
+            addSuggestionUseCase.execute(suggestion)
         }
     }
 }

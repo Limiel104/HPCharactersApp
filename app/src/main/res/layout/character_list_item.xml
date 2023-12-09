@@ -9,7 +9,7 @@
         android:layout_width="200dp"
         android:layout_height="300dp"
         android:scaleType="centerCrop"
-        android:contentDescription="Image"/>
+        android:contentDescription="@string/image"/>
 
     <TextView
         android:id="@+id/itemName"
@@ -19,6 +19,6 @@
         android:textSize="20sp"
         android:paddingBottom="8dp"
         android:layout_below="@+id/itemImage"
-        android:text="John Smith" />
+        android:text="@string/text" />
 
 </RelativeLayout>

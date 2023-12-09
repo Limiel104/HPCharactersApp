@@ -3,6 +3,8 @@ package com.example.hpcharactersapp.presentation.character_list
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
+import com.example.hpcharactersapp.R
 import com.example.hpcharactersapp.databinding.SuggestionListItemBinding
 
 class SuggestionRVAdapter(
@@ -39,6 +41,7 @@ class SuggestionRVAdapter(
 
         fun bind(suggestion: String) {
             binding.suggestionText.text = suggestion
+            binding.icon.load(R.drawable.ic_history)
         }
     }
 }

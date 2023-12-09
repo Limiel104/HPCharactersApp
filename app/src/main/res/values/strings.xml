@@ -2,4 +2,7 @@
     <string name="app_name">HP Characters App</string>
     <string name="search">Search</string>
     <string name="search_dots">Search…</string>
+    <string name="text">Test text</string>
+    <string name="icon">Icon</string>
+    <string name="image">Image</string>
 </resources>
