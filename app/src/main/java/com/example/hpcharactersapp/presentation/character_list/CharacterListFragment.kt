@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.hpcharactersapp.databinding.FragmentCharacterListBinding
@@ -40,6 +41,8 @@ class CharacterListFragment : Fragment() {
         binding.characterListRV.layoutManager = GridLayoutManager(requireContext(),2)
         displayCharacters()
         onCharacterSearch()
+        onLoading()
+        onError()
     }
 
     override fun onDestroyView() {
@@ -63,6 +66,23 @@ class CharacterListFragment : Fragment() {
             viewModel.onEvent(CharacterListEvent.OnQueryChange(query.toString()))
             binding.searchView.hide()
             return@setOnEditorActionListener false
+        }
+    }
+
+    fun onLoading() {
+        viewModel.isLoading.observe(viewLifecycleOwner) { isLoading ->
+            when(isLoading) {
+                true -> binding.progressIndicator.visibility = View.VISIBLE
+                false -> binding.progressIndicator.visibility = View.INVISIBLE
+            }
+        }
+    }
+
+    fun onError() {
+        viewModel.errorMessage.observe(viewLifecycleOwner) { message ->
+            message?.let {
+                Toast.makeText(context,message,Toast.LENGTH_LONG).show()
+            }
         }
     }
 }

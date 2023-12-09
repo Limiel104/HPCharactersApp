@@ -29,6 +29,14 @@
             android:layout_height="wrap_content"
             android:hint="@string/search_dots" />
 
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progressIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="invisible"
+            app:showAnimationBehavior="none"/>
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.search.SearchView
@@ -40,5 +48,7 @@
         android:inputType="text"
         app:layout_anchor="@id/searchBar">
     </com.google.android.material.search.SearchView>
+
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

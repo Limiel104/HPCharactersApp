@@ -24,6 +24,12 @@ class CharacterListViewModel @Inject constructor(
     private val _query = MutableLiveData<String>()
     val query: LiveData<String> = _query
 
+    private val _isLoading = MutableLiveData(false)
+    val isLoading: LiveData<Boolean> = _isLoading
+
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> = _errorMessage
+
     init {
         Log.i("TAG","Character List View Model")
 
@@ -45,8 +51,14 @@ class CharacterListViewModel @Inject constructor(
         viewModelScope.launch {
             getCharactersUseCase.execute(query).collect { response ->
                 when(response) {
-                    is Resource.Error -> {}
-                    is Resource.Loading -> {}
+                    is Resource.Error -> {
+                        response.message?.let {  message ->
+                            _errorMessage.value = message
+                        }
+                    }
+                    is Resource.Loading -> {
+                        _isLoading.value = response.isLoading
+                    }
                     is Resource.Success -> {
                         response.data?.let { characterList ->
                             _characters.value = characterList

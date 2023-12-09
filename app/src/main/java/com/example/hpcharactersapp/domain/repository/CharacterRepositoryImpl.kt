@@ -1,5 +1,6 @@
 package com.example.hpcharactersapp.domain.repository
 
+import android.util.Log
 import com.example.hpcharactersapp.data.local.CharacterDao
 import com.example.hpcharactersapp.data.mapper.getAlternateNamesEntityList
 import com.example.hpcharactersapp.data.mapper.toCharacter
@@ -31,6 +32,7 @@ class CharacterRepositoryImpl @Inject constructor(
             if(loadFromCache) {
                 emit(Resource.Success(characters))
                 emit(Resource.Loading(isLoading = false))
+                Log.i("TAG","Loaded from cache")
                 return@flow
             }
 
@@ -56,6 +58,7 @@ class CharacterRepositoryImpl @Inject constructor(
                 emit(Resource.Success(dao.getCharacters(query).map { it.toCharacter() }))
             }
 
+            Log.i("TAG","Loaded from remote")
             emit(Resource.Loading(isLoading = false))
         }
     }
