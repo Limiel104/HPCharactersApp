@@ -8,7 +8,8 @@ import com.example.hpcharactersapp.R
 import com.example.hpcharactersapp.databinding.SuggestionListItemBinding
 
 class SuggestionRVAdapter(
-    private val suggestions: List<String>
+    private val suggestions: List<String>,
+    private val onItemClicked: (String) -> Unit
 ): RecyclerView.Adapter<SuggestionRVAdapter.SuggestionViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -16,11 +17,12 @@ class SuggestionRVAdapter(
         viewType: Int
     ): SuggestionViewHolder {
         return SuggestionViewHolder(
-            SuggestionListItemBinding.inflate(
+            binding = SuggestionListItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            onItemClicked = { onItemClicked(suggestions[it]) }
         )
     }
 
@@ -36,8 +38,15 @@ class SuggestionRVAdapter(
     }
 
     inner class SuggestionViewHolder(
-        private val binding: SuggestionListItemBinding
+        private val binding: SuggestionListItemBinding,
+        private val onItemClicked: (Int) -> Unit
     ): RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.suggestionListItem.setOnClickListener {
+                onItemClicked(bindingAdapterPosition)
+            }
+        }
 
         fun bind(suggestion: String) {
             binding.suggestionText.text = suggestion
