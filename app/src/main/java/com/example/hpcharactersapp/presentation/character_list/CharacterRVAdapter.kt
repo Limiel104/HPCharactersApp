@@ -9,7 +9,8 @@ import com.example.hpcharactersapp.databinding.CharacterListItemBinding
 import com.example.hpcharactersapp.domain.model.Character
 
 class CharacterRVAdapter(
-    private val characters: List<Character>
+    private val characters: List<Character>,
+    private val onItemClicked: (Character) -> Unit
 ): RecyclerView.Adapter<CharacterRVAdapter.CharacterViewHolder>() {
 
     override fun onCreateViewHolder(
@@ -17,11 +18,12 @@ class CharacterRVAdapter(
         viewType: Int
     ): CharacterViewHolder {
         return CharacterViewHolder(
-            CharacterListItemBinding.inflate(
+            binding = CharacterListItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            onItemClicked = { onItemClicked(characters[it]) }
         )
     }
 
@@ -37,8 +39,15 @@ class CharacterRVAdapter(
     }
 
     inner class CharacterViewHolder(
-        private val binding: CharacterListItemBinding
+        private val binding: CharacterListItemBinding,
+        private val onItemClicked: (Int) -> Unit
     ): RecyclerView.ViewHolder(binding.root) {
+
+        init {
+            binding.characterListItem.setOnClickListener {
+                onItemClicked(bindingAdapterPosition)
+            }
+        }
 
         fun bind(character: Character) {
             binding.itemName.text = character.name

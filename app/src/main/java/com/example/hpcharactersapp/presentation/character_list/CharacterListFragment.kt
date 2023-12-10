@@ -58,7 +58,9 @@ class CharacterListFragment : Fragment() {
         viewModel.characters.observe(viewLifecycleOwner) {
             binding.characterListRV.adapter = viewModel.characters.value?.let { characters ->
                 Log.i("TAG", characters.toString())
-                CharacterRVAdapter(characters)
+                CharacterRVAdapter(characters) { character ->
+                    Log.i("TAG",character.name)
+                }
             }
         }
     }
