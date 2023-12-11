@@ -68,9 +68,8 @@ class CharacterListFragment : Fragment() {
     fun displaySuggestions() {
         viewModel.suggestions.observe(viewLifecycleOwner) {
             binding.suggestionListRV.adapter = viewModel.suggestions.value?.let { suggestions ->
-                Log.i("TAG", suggestions.toString())
                 SuggestionRVAdapter(suggestions) { suggestion ->
-                    Log.i("TAG", suggestion)
+                    binding.searchView.setText(suggestion)
                 }
             }
         }
