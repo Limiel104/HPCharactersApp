@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.hpcharactersapp.R
 import com.example.hpcharactersapp.databinding.FragmentCharacterListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -59,7 +61,7 @@ class CharacterListFragment : Fragment() {
             binding.characterListRV.adapter = viewModel.characters.value?.let { characters ->
                 Log.i("TAG", characters.toString())
                 CharacterRVAdapter(characters) { character ->
-                    Log.i("TAG",character.name)
+                    findNavController().navigate(R.id.action_characterListFragment_to_characterDetailsFragment)
                 }
             }
         }
