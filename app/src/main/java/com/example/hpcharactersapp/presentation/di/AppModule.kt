@@ -5,9 +5,13 @@ import androidx.room.Room
 import com.example.hpcharactersapp.data.local.CharactersDatabase
 import com.example.hpcharactersapp.data.remote.HPApi
 import com.example.hpcharactersapp.data.repository.CharacterRepository
+import com.example.hpcharactersapp.data.repository.SuggestionRepository
 import com.example.hpcharactersapp.domain.repository.CharacterRepositoryImpl
+import com.example.hpcharactersapp.domain.repository.SuggestionRepositoryImpl
+import com.example.hpcharactersapp.domain.use_case.AddSuggestionUseCase
 import com.example.hpcharactersapp.domain.use_case.GetCharacterUseCase
 import com.example.hpcharactersapp.domain.use_case.GetCharactersUseCase
+import com.example.hpcharactersapp.domain.use_case.GetSuggestionsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -49,6 +53,12 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideSuggestionRepository(db: CharactersDatabase): SuggestionRepository {
+        return SuggestionRepositoryImpl(db.suggestionDao)
+    }
+
+    @Provides
+    @Singleton
     fun provideGetCharactersUseCase(repository: CharacterRepository): GetCharactersUseCase {
         return GetCharactersUseCase(repository)
     }
@@ -57,5 +67,17 @@ object AppModule {
     @Singleton
     fun provideGetCharacterUseCase(repository: CharacterRepository): GetCharacterUseCase {
         return GetCharacterUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetSuggestionsUseCase(repository: SuggestionRepository): GetSuggestionsUseCase {
+        return GetSuggestionsUseCase(repository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAddSuggestionUseCase(repository: SuggestionRepository): AddSuggestionUseCase {
+        return AddSuggestionUseCase(repository)
     }
 }

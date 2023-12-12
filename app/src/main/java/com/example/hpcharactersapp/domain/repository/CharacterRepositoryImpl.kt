@@ -1,5 +1,6 @@
 package com.example.hpcharactersapp.domain.repository
 
+import android.util.Log
 import com.example.hpcharactersapp.data.local.CharacterDao
 import com.example.hpcharactersapp.data.mapper.getAlternateNamesEntityList
 import com.example.hpcharactersapp.data.mapper.toCharacter
@@ -20,16 +21,18 @@ class CharacterRepositoryImpl @Inject constructor(
     private val api: HPApi,
     private val dao: CharacterDao
 ): CharacterRepository {
-    override suspend fun getCharacters(): Flow<Resource<List<Character>>> {
+    override suspend fun getCharacters(query: String): Flow<Resource<List<Character>>> {
         return flow {
             emit(Resource.Loading(isLoading = true))
 
-            val characters = dao.getCharacters().map { it.toCharacter() }
-            val loadFromCache = characters.isNotEmpty()
+            val characters = dao.getCharacters(query).map { it.toCharacter() }
+            val isDbEmpty = characters.isEmpty() && query.isBlank()
+            val loadFromCache = !isDbEmpty
 
             if(loadFromCache) {
                 emit(Resource.Success(characters))
                 emit(Resource.Loading(isLoading = false))
+                Log.i("TAG","Loaded from cache")
                 return@flow
             }
 
@@ -52,9 +55,10 @@ class CharacterRepositoryImpl @Inject constructor(
                 for(character in characterList) {
                     dao.insertCharacterWithAlternateNames(character.toCharacterEntity(),character.getAlternateNamesEntityList())
                 }
-                emit(Resource.Success(dao.getCharacters().map { it.toCharacter() }))
+                emit(Resource.Success(dao.getCharacters(query).map { it.toCharacter() }))
             }
 
+            Log.i("TAG","Loaded from remote")
             emit(Resource.Loading(isLoading = false))
         }
     }
