@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.example.hpcharactersapp.databinding.FragmentCharacterDetailsBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,6 +17,7 @@ class CharacterDetailsFragment : Fragment() {
     private var _binding: FragmentCharacterDetailsBinding? = null
     private val binding get() = _binding!!
     private val viewModel: CharacterDetailsViewModel by viewModels()
+    private val passedArg: CharacterDetailsFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +38,7 @@ class CharacterDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.onEvent(CharacterDetailsEvent.OnPassedCharacterId(passedArg.characterId))
         displayCharacter()
     }
 

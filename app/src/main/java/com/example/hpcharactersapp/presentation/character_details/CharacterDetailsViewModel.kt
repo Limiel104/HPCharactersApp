@@ -22,13 +22,19 @@ class CharacterDetailsViewModel @Inject constructor(
 
     init {
         Log.i("TAG","Character Details View Model")
-
-        getCharacter()
     }
 
-    fun getCharacter() {
+    fun onEvent(event: CharacterDetailsEvent) {
+        when(event) {
+            is CharacterDetailsEvent.OnPassedCharacterId -> {
+                getCharacter(event.characterId)
+            }
+        }
+    }
+
+    fun getCharacter(characterId: String) {
         viewModelScope.launch {
-            getCharacterUseCase.execute("9e3f7ce4-b9a7-4244-b709-dae5c1f1d4a8").collect { response ->
+            getCharacterUseCase.execute(characterId).collect { response ->
                 when(response) {
                     is Resource.Error -> {}
                     is Resource.Loading -> {}
