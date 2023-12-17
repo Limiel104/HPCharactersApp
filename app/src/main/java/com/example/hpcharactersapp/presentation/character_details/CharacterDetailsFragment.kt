@@ -42,6 +42,9 @@ class CharacterDetailsFragment : Fragment() {
 
         viewModel.onEvent(CharacterDetailsEvent.OnPassedCharacterId(passedArg.characterId))
         displayCharacter()
+        observeBasicInfoSection()
+        observeMagicalCharacteristicsSection()
+        observeAffiliationSection()
     }
 
     override fun onDestroyView() {
@@ -53,51 +56,89 @@ class CharacterDetailsFragment : Fragment() {
         viewModel.character.observe(viewLifecycleOwner) { character ->
             Log.i("TAG",character.toString())
 
-            binding.characterName.text = character.name
-            binding.characterImage.load(character.imageUrl)
+            with(binding) {
+                characterName.text = character.name
+                characterImage.load(character.imageUrl)
 
-            if(character.alternateNames.isNotEmpty()) {
-                binding.characterAlternateNames.text = character.alternateNames.joinToString(", ")
+                if(character.alternateNames.isNotEmpty())
+                    characterAlternateNames.text = character.alternateNames.joinToString(", ")
+                else
+                    characterAlternateNames.visibility = View.GONE
+
+                characterSpecies.text = character.species
+                characterGender.text = character.gender
+                characterDateOfBirth.text = character.dateOfBirth
+                characterAncestry.text = character.ancestry
+                characterEyeColor.text = character.eyeColour
+                characterHairColor.text = character.hairColour
+
+                if(character.alive)
+                    characterAliveStatus.setText(R.string.alive)
+                else
+                    characterAliveStatus.setText(R.string.dead)
+
+                characterPatronus.text = character.patronus
+                characterWandCore.text = character.wand.core
+                characterWandLength.text = character.wand.length.toString()
+                characterWandWood.text = character.wand.wood
+
+                characterHouse.text = character.house
+
+                if(character.hogwartsStaff) {
+                    characterHStuff.setText(R.string.stuff)
+                    characterHStudent.visibility = View.INVISIBLE
+                }
+                else if(character.hogwartsStudent) {
+                    characterHStudent.setText(R.string.student)
+                    characterHStuff.visibility = View.INVISIBLE
+                }
+                else {
+                    characterHStudent.visibility = View.GONE
+                    characterHStuff.visibility = View.GONE
+                }
+
+                basicInfoFB.setOnClickListener { viewModel.onEvent(CharacterDetailsEvent.ToggleBasicInfoSection) }
+                magicalCharacteristicsFB.setOnClickListener { viewModel.onEvent(CharacterDetailsEvent.ToggleMagicalCharacteristicSection) }
+                affiliationFB.setOnClickListener { viewModel.onEvent(CharacterDetailsEvent.ToggleAffiliationSection) }
+            }
+        }
+    }
+
+    fun observeBasicInfoSection() {
+        viewModel.isBasicInfoSectionExpanded.observe(viewLifecycleOwner) { isSectionVisible ->
+            if(isSectionVisible) {
+                binding.basicInfoRL.visibility = View.VISIBLE
+                binding.basicInfoExpandIcon.load(R.drawable.ic_expand_less)
             }
             else {
-                binding.characterAlternateNames.visibility = View.GONE
+                binding.basicInfoRL.visibility = View.GONE
+                binding.basicInfoExpandIcon.load(R.drawable.ic_expand_more)
             }
+        }
+    }
 
-            binding.basicInfoExpandIcon.load(R.drawable.ic_expand_more)
-            binding.characterSpecies.text = character.species
-            binding.characterGender.text = character.gender
-            binding.characterDateOfBirth.text = character.dateOfBirth
-            binding.characterAncestry.text = character.ancestry
-            binding.characterEyeColor.text = character.eyeColour
-            binding.characterHairColor.text = character.hairColour
-
-            if(character.alive) {
-                binding.characterAliveStatus.setText(R.string.alive)
+    fun observeMagicalCharacteristicsSection() {
+        viewModel.isMagicalCharacteristicsSectionExpanded.observe(viewLifecycleOwner) { isSectionVisible ->
+            if(isSectionVisible) {
+                binding.magicalCharacteristicsRL.visibility = View.VISIBLE
+                binding.magicalCharacteristicsExpandIcon.load(R.drawable.ic_expand_less)
             }
             else {
-                binding.characterAliveStatus.setText(R.string.dead)
+                binding.magicalCharacteristicsRL.visibility = View.GONE
+                binding.magicalCharacteristicsExpandIcon.load(R.drawable.ic_expand_more)
             }
+        }
+    }
 
-            binding.magicalCharacteristicsExpandIcon.load(R.drawable.ic_expand_more)
-            binding.characterPatronus.text = character.patronus
-            binding.characterWandCore.text = character.wand.core
-            binding.characterWandLength.text = character.wand.length.toString()
-            binding.characterWandWood.text = character.wand.wood
-
-            binding.affiliationExpandIcon.load(R.drawable.ic_expand_more)
-            binding.characterHouse.text = character.house
-
-            if(character.hogwartsStaff) {
-                binding.characterHStuff.setText(R.string.stuff)
-                binding.characterHStudent.visibility = View.INVISIBLE
-            }
-            else if(character.hogwartsStudent) {
-                binding.characterHStudent.setText(R.string.student)
-                binding.characterHStuff.visibility = View.INVISIBLE
+    fun observeAffiliationSection() {
+        viewModel.isAffiliationSectionExpanded.observe(viewLifecycleOwner) { isSectionVisible ->
+            if(isSectionVisible) {
+                binding.affiliationRL.visibility = View.VISIBLE
+                binding.affiliationExpandIcon.load(R.drawable.ic_expand_less)
             }
             else {
-                binding.characterHStudent.visibility = View.GONE
-                binding.characterHStuff.visibility = View.GONE
+                binding.affiliationRL.visibility = View.GONE
+                binding.affiliationExpandIcon.load(R.drawable.ic_expand_more)
             }
         }
     }

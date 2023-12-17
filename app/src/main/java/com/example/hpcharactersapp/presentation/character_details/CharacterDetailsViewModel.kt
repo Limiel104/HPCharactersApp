@@ -20,6 +20,15 @@ class CharacterDetailsViewModel @Inject constructor(
     private val _character = MutableLiveData<Character>()
     val character: LiveData<Character> = _character
 
+    private val _isBasicInfoSectionVisible = MutableLiveData(false)
+    val isBasicInfoSectionExpanded: LiveData<Boolean> = _isBasicInfoSectionVisible
+
+    private val _isMagicalCharacteristicsSectionVisible = MutableLiveData(false)
+    val isMagicalCharacteristicsSectionExpanded: LiveData<Boolean> = _isMagicalCharacteristicsSectionVisible
+
+    private val _isAffiliationSectionVisible = MutableLiveData(false)
+    val isAffiliationSectionExpanded: LiveData<Boolean> = _isAffiliationSectionVisible
+
     init {
         Log.i("TAG","Character Details View Model")
     }
@@ -28,6 +37,15 @@ class CharacterDetailsViewModel @Inject constructor(
         when(event) {
             is CharacterDetailsEvent.OnPassedCharacterId -> {
                 getCharacter(event.characterId)
+            }
+            is CharacterDetailsEvent.ToggleBasicInfoSection -> {
+                _isBasicInfoSectionVisible.value = !_isBasicInfoSectionVisible.value!!
+            }
+            is CharacterDetailsEvent.ToggleMagicalCharacteristicSection -> {
+                _isMagicalCharacteristicsSectionVisible.value = !_isMagicalCharacteristicsSectionVisible.value!!
+            }
+            is CharacterDetailsEvent.ToggleAffiliationSection -> {
+                _isAffiliationSectionVisible.value = !_isAffiliationSectionVisible.value!!
             }
         }
     }
