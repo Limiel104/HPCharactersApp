@@ -61,7 +61,8 @@ class CharacterListFragment : Fragment() {
             binding.characterListRV.adapter = viewModel.characters.value?.let { characters ->
                 Log.i("TAG", characters.toString())
                 CharacterRVAdapter(characters) { character ->
-                    findNavController().navigate(R.id.action_characterListFragment_to_characterDetailsFragment)
+                    val action = CharacterListFragmentDirections.actionCharacterListFragmentToCharacterDetailsFragment(character.id)
+                    findNavController().navigate(action)
                 }
             }
         }

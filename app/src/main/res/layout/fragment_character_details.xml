@@ -1,16 +1,349 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     tools:context=".presentation.character_details.CharacterDetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="100dp"
-        android:textAlignment="center"
-        android:text="Character Details" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/characterName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="10dp"
+                android:text="@string/text"
+                android:textAlignment="center"
+                android:textSize="24sp" />
+
+            <ImageView
+                android:id="@+id/characterImage"
+                android:layout_width="150dp"
+                android:layout_height="200dp"
+                android:layout_below="@+id/characterName"
+                android:layout_centerHorizontal="true"
+                android:contentDescription="@string/image"
+                android:scaleType="centerCrop" />
+
+            <TextView
+                android:id="@+id/characterAlternateNames"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/characterImage"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="8dp"
+                android:text="@string/alternative_test"
+                android:textAlignment="center"
+                android:textStyle="italic" />
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/basicInfoFB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:justifyContent="space_between"
+                android:paddingHorizontal="20dp"
+                android:layout_below="@id/characterAlternateNames">
+
+                <TextView
+                    android:id="@+id/basicInfoTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:text="@string/basic_info" />
+
+                <ImageView
+                    android:id="@+id/basicInfoExpandIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:contentDescription="@string/icon" />
+
+            </com.google.android.flexbox.FlexboxLayout>
+
+            <RelativeLayout
+                android:id="@+id/basicInfoRL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="40dp"
+                android:layout_below="@id/basicInfoFB">
+
+                <TextView
+                    android:id="@+id/speciesTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/species" />
+
+                <TextView
+                    android:id="@+id/characterSpecies"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toEndOf="@id/speciesTV"
+                    android:text="@string/species_test" />
+
+                <TextView
+                    android:id="@+id/genderTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/speciesTV"
+                    android:text="@string/gender" />
+
+                <TextView
+                    android:id="@+id/characterGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/speciesTV"
+                    android:layout_toEndOf="@id/genderTV"
+                    android:text="@string/gender_test" />
+
+                <TextView
+                    android:id="@+id/dateOfBirthTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/genderTV"
+                    android:text="@string/date_of_birth" />
+
+                <TextView
+                    android:id="@+id/characterDateOfBirth"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toEndOf="@id/dateOfBirthTV"
+                    android:layout_below="@+id/genderTV"
+                    android:text="@string/date_of_birth_test" />
+
+                <TextView
+                    android:id="@+id/ancestryTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/dateOfBirthTV"
+                    android:text="@string/ancestry" />
+
+                <TextView
+                    android:id="@+id/characterAncestry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toEndOf="@id/ancestryTV"
+                    android:layout_below="@+id/dateOfBirthTV"
+                    android:text="@string/alternative_test" />
+
+                <TextView
+                    android:id="@+id/eyeColorTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/ancestryTV"
+                    android:text="@string/eye_color" />
+
+                <TextView
+                    android:id="@+id/characterEyeColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toEndOf="@id/eyeColorTV"
+                    android:layout_below="@+id/ancestryTV"
+                    android:text="@string/eye_color_test" />
+
+                <TextView
+                    android:id="@+id/hairColorTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/eyeColorTV"
+                    android:text="@string/hair_color" />
+
+                <TextView
+                    android:id="@+id/characterHairColor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toEndOf="@id/hairColorTV"
+                    android:layout_below="@+id/eyeColorTV"
+                    android:text="@string/hair_color_test" />
+
+                <TextView
+                    android:id="@+id/aliveStatusTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/hairColorTV"
+                    android:text="@string/alive_status" />
+
+                <TextView
+                    android:id="@+id/characterAliveStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toEndOf="@id/aliveStatusTV"
+                    android:layout_below="@+id/hairColorTV"
+                    android:text="@string/alternative_test" />
+
+            </RelativeLayout>
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/magicalCharacteristicsFB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:justifyContent="space_between"
+                android:paddingHorizontal="20dp"
+                android:layout_below="@id/basicInfoRL">
+
+                <TextView
+                    android:id="@+id/magicalCharacteristicsTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:text="@string/magical_characteristics" />
+
+                <ImageView
+                    android:id="@+id/magicalCharacteristicsExpandIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:contentDescription="@string/icon" />
+
+            </com.google.android.flexbox.FlexboxLayout>
+
+            <RelativeLayout
+                android:id="@+id/magicalCharacteristicsRL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="40dp"
+                android:layout_below="@id/magicalCharacteristicsFB">
+
+                <TextView
+                    android:id="@+id/patronusTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/patronus" />
+
+                <TextView
+                    android:id="@+id/characterPatronus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toEndOf="@id/patronusTV"
+                    android:text="@string/patronus_test" />
+
+                <TextView
+                    android:id="@+id/wandCoreTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/patronusTV"
+                    android:text="@string/wand_core" />
+
+                <TextView
+                    android:id="@+id/characterWandCore"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toEndOf="@id/wandCoreTV"
+                    android:layout_below="@id/patronusTV"
+                    android:text="@string/wand_core_test" />
+
+                <TextView
+                    android:id="@+id/wandLengthTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/wandCoreTV"
+                    android:text="@string/wand_length" />
+
+                <TextView
+                    android:id="@+id/characterWandLength"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toEndOf="@id/wandLengthTV"
+                    android:layout_below="@+id/wandCoreTV"
+                    android:text="@string/wand_length_test" />
+
+                <TextView
+                    android:id="@+id/wandWoodTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/wandLengthTV"
+                    android:text="@string/wand_wood" />
+
+                <TextView
+                    android:id="@+id/characterWandWood"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toEndOf="@id/wandWoodTV"
+                    android:layout_below="@+id/wandLengthTV"
+                    android:text="@string/wand_wood_test" />
+
+            </RelativeLayout>
+
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/affiliationFB"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:justifyContent="space_between"
+                android:paddingHorizontal="20dp"
+                android:layout_below="@id/magicalCharacteristicsRL">
+
+                <TextView
+                    android:id="@+id/affiliationTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:text="@string/affiliation" />
+
+                <ImageView
+                    android:id="@+id/affiliationExpandIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:contentDescription="@string/icon" />
+
+            </com.google.android.flexbox.FlexboxLayout>
+
+            <RelativeLayout
+                android:id="@+id/affiliationRL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="40dp"
+                android:layout_below="@id/affiliationFB">
+
+                <TextView
+                    android:id="@+id/houseTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/house" />
+
+                <TextView
+                    android:id="@+id/characterHouse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toEndOf="@id/houseTV"
+                    android:text="@string/house_test" />
+
+                <TextView
+                    android:id="@+id/hogwartsTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/houseTV"
+                    android:text="@string/hogwarts" />
+
+                <TextView
+                    android:id="@+id/characterHStuff"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/hogwartsTV"
+                    android:layout_below="@id/houseTV"
+                    android:text="@string/stuff" />
+
+                <TextView
+                    android:id="@+id/characterHStudent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/hogwartsTV"
+                    android:layout_below="@id/houseTV"
+                    android:text="@string/student" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</LinearLayout>
