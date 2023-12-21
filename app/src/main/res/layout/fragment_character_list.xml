@@ -12,10 +12,165 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/characterListRV"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/filterRL"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp">
+
+                <TextView
+                    android:id="@+id/genderFilterTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Gender" />
+
+                <CheckBox
+                    android:id="@+id/femaleCB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Female"
+                    android:layout_below="@id/genderFilterTV" />
+
+                <CheckBox
+                    android:id="@+id/maleCB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Male"
+                    android:layout_toEndOf="@+id/femaleCB"
+                    android:layout_below="@+id/genderFilterTV" />
+
+                <TextView
+                    android:id="@+id/houseFilterTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="House"
+                    android:layout_below="@id/maleCB" />
+
+                <CheckBox
+                    android:id="@+id/gryffindorCB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gryffindor"
+                    android:layout_below="@id/houseFilterTV" />
+
+                <CheckBox
+                    android:id="@+id/hufflepuffCB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Hufflepuff"
+                    android:layout_toEndOf="@+id/gryffindorCB"
+                    android:layout_below="@id/houseFilterTV" />
+
+                <CheckBox
+                    android:id="@+id/ravenclawCB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ravenclaw"
+                    android:layout_below="@id/gryffindorCB" />
+
+                <CheckBox
+                    android:id="@+id/slytherinCB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Slytherin"
+                    android:layout_toEndOf="@+id/ravenclawCB"
+                    android:layout_below="@+id/gryffindorCB" />
+
+                <TextView
+                    android:id="@+id/hogwartsFilterTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Hogwarts"
+                    android:layout_below="@id/slytherinCB" />
+
+                <CheckBox
+                    android:id="@+id/studentCB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Student"
+                    android:layout_below="@id/hogwartsFilterTV" />
+
+                <CheckBox
+                    android:id="@+id/stuffCB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Stuff"
+                    android:layout_toEndOf="@+id/studentCB"
+                    android:layout_below="@+id/hogwartsFilterTV" />
+
+
+                <TextView
+                    android:id="@+id/ancestryFilterTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ancestry"
+                    android:layout_below="@+id/stuffCB" />
+
+                <CheckBox
+                    android:id="@+id/muggleCB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Muggle"
+                    android:layout_below="@id/ancestryFilterTV" />
+
+                <CheckBox
+                    android:id="@+id/mugglebornCB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Muggleborn"
+                    android:layout_toEndOf="@+id/muggleCB"
+                    android:layout_below="@+id/ancestryFilterTV" />
+
+                <CheckBox
+                    android:id="@+id/halfbloodCB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Half-blood"
+                    android:layout_below="@id/muggleCB" />
+
+                <CheckBox
+                    android:id="@+id/purebloodCB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pure-blood"
+                    android:layout_toEndOf="@+id/halfbloodCB"
+                    android:layout_below="@+id/muggleCB" />
+
+                <TextView
+                    android:id="@+id/statusFilterTV"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Status"
+                    android:layout_below="@+id/purebloodCB" />
+
+                <CheckBox
+                    android:id="@+id/aliveCB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Alive"
+                    android:layout_below="@id/statusFilterTV" />
+
+                <CheckBox
+                    android:id="@+id/deadCB"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Dead"
+                    android:layout_toEndOf="@+id/aliveCB"
+                    android:layout_below="@+id/statusFilterTV" />
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/characterListRV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/filterRL" />
+
+        </RelativeLayout>
 
     </androidx.core.widget.NestedScrollView>
 
