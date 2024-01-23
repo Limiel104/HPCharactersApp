@@ -100,4 +100,12 @@ dependencies {
 
     //FlexBox
     implementation("com.google.android.flexbox:flexbox:3.0.0")
+
+    //Espresso
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    androidTestImplementation("androidx.test:runner:1.4.0")
+    androidTestImplementation("androidx.test:rules:1.4.0")
+
+    //Fragments testing
+    debugImplementation("androidx.fragment:fragment-testing:1.6.2")
 }
