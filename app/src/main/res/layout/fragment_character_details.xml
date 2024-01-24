@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    tools:context=".presentation.character_details.CharacterDetailsFragment">
+    tools:context=".presentation.character_details.CharacterDetailsFragment"
+    android:id="@+id/character_details_fragment">
 
     <ScrollView
         android:layout_width="match_parent"
