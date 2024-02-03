@@ -13,11 +13,24 @@ import androidx.test.espresso.matcher.ViewMatchers.withText
 import com.google.android.material.R.id.open_search_view_edit_text
 import com.example.hpcharactersapp.R
 import com.example.hpcharactersapp.launchFragmentInHiltContainer
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 
+@HiltAndroidTest
 @OptIn(ExperimentalCoroutinesApi::class)
 class CharacterListFragmentTest {
+
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
+
+    @Before
+    fun setUp() {
+        hiltRule.inject()
+    }
 
     @Test
     fun test_isCharacterListFragmentLaunchedInHiltContainer() {

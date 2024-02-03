@@ -17,7 +17,7 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "com.example.hpcharactersapp.TestRunner"
     }
 
     buildTypes {
@@ -52,8 +52,6 @@ dependencies {
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
@@ -67,11 +65,11 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.48.1")
     implementation("androidx.hilt:hilt-navigation-fragment:1.1.0")
 
-    // For instrumentation tests
+    //Dagger Hilt - for instrumentation tests
     androidTestImplementation("com.google.dagger:hilt-android-testing:2.48.1")
     kaptAndroidTest("com.google.dagger:hilt-compiler:2.48.1")
 
-    // For local unit tests
+    //Dagger Hilt - for local unit tests
     testImplementation("com.google.dagger:hilt-android-testing:2.48.1")
     kaptTest("com.google.dagger:hilt-compiler:2.48.1")
 
@@ -86,10 +84,10 @@ dependencies {
     //Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:2.6.1")
 
-    // ViewModel
+    //ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
 
-    // LiveData
+    //LiveData
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
 
     //RecycleView
@@ -102,9 +100,10 @@ dependencies {
     implementation("com.google.android.flexbox:flexbox:3.0.0")
 
     //Espresso
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation("androidx.test:runner:1.4.0")
     androidTestImplementation("androidx.test:rules:1.4.0")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
 
     //Fragments testing
     debugImplementation("androidx.fragment:fragment-testing:1.6.2")
